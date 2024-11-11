@@ -10,7 +10,7 @@ output: pdf_document
 You can install the mlr3calibration package from GitHub with the following code:
 
 ```{r installation}
-remotes::install_github("mlr-org/mlr3calibration")
+remotes::install_github("AdriGl117/mlr3calibration")
 library(mlr3calibration)
 ```
 

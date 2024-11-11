@@ -27,4 +27,5 @@ Imports:
     mlr3verse,
     stats,
     ggplot2,
-    ggpubr
+    ggpubr,
+    dplyr
