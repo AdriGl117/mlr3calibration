@@ -1,28 +1,25 @@
 #' @title Calibration Plot Function
 #'
-#' @name calibrationplot
-#' @format Function for creating calibration plots (reliability curves).
-#'
 #' @description
 #' Generates calibration plots, also known as reliability curves, for one or more classification learners.
 #' This function evaluates how well the predicted probabilities from the learners are calibrated with the true outcomes.
 #'
-#' @section Parameters:
-#' * `learners` :: `list` of [`Learner`][mlr3::Learner]\cr
+#' @param learners `list` of [`Learner`][mlr3::Learner]\cr
 #'   List of trained learners to be evaluated.
-#' * `task` :: [`Task`][mlr3::Task]\cr
+#' @param task [`Task`][mlr3::Task]\cr
 #'   Task containing the data to be used for prediction and evaluation.
-#' * `bins` :: `integer(1)`\cr
+#' @param bins `integer(1)`\cr
 #'   Number of bins to use when grouping predicted probabilities. Default is `11`.
-#' * `smooth` :: `logical(1)`\cr
+#' @param smooth `logical(1)`\cr
 #'   Whether to plot a smoothed calibration curve using LOESS. Default is `FALSE`.
-#' * `CI` :: `logical(1)`\cr
+#' @param CI `logical(1)`\cr
 #'   Whether to include confidence intervals when `smooth` is `TRUE`. Default is `FALSE`.
+#' @param rug `logical(1)`\cr
+#'   Whether to add a rug plot to show individual prediction points. Default is `FALSE`.
 #'
-#' @section Value:
-#' Returns a `ggplot` object displaying the calibration plot(s).
+#' @return A `ggplot` object displaying the calibration plot(s).
 #'
-#' @section Details:
+#' @details
 #' For each learner, the function predicts probabilities on the given task.
 #' The predicted probabilities are divided into bins, and within each bin,
 #' the mean predicted probability and the mean observed outcome are calculated.
@@ -33,14 +30,14 @@
 #'
 #' @family Plotting Functions
 #' @export
+#'
 #' @examples
 #' # Example usage of calibrationplot
 #' library(ggplot2)
-#' # List the Learners you want to plot
+#' # List the learners you want to plot
 #' lrns = list(learner_uncal, learner_cal)
 #' # Plot the reliability curves
 #' calibrationplot(lrns, task_test, smooth = TRUE)
-
 calibrationplot <- function(learners, task, bins = 11,
                             smooth = FALSE, CI = FALSE, rug = FALSE) {
 

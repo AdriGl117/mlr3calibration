@@ -1,108 +1,36 @@
 #' @title Calibration Pipeline Operator
 #'
-#' @usage NULL
-#' @name mlr_pipeops_calibration
-#' @format [`R6Class`][R6::R6Class] object inheriting from [`PipeOp`][mlr3pipelines::PipeOp].
-#'
 #' @description
 #' Pipeline operator for calibrating classification models using different calibration methods.
 #' Supports Platt scaling, isotonic regression, and beta calibration.
-#' This operator adjusts the predicted probabilities to better reflect the true probabilities of the outcomes.
 #'
-#' @section Construction:
-#' ```
-#' PipeOpCalibration$new(id = "calibration", param_vals = list())
-#' ```
+#' @param learner [`Learner`][mlr3::Learner]\cr Base learner to be calibrated.
+#' @param method `character(1)`\cr Calibration method to use. One of `"platt"`, `"isotonic"`, or `"beta"`. Default is `"platt"`.
+#' @param rsmp [`Resampling`][mlr3::Resampling]\cr Resampling strategy for cross-validation. Default is `rsmp("cv", folds = 5)`.
+#' @param rr [`ResampleResult`][mlr3::ResampleResult]\cr Resample result object, if provided.
+#' @param parameters `character(1)`\cr Parameters for beta calibration. Default is `"abm"`.
+#' @param param_vals `list`\cr List of hyperparameter settings, overwriting the default hyperparameter settings.
 #'
-#' * `id` :: `character(1)`\cr
-#'   Identifier of the resulting object, default `"calibration"`.
-#' * `learner` :: [`Learner`][mlr3::Learner]\cr
-#'   Base learner to be calibrated.
-#' * `method` :: `character(1)`\cr
-#'   Calibration method to use. One of `"platt"`, `"isotonic"`, or `"beta"`. Default is `"platt"`.
-#' * `rsmp` :: [`Resampling`][mlr3::Resampling]\cr
-#'   Resampling strategy for cross-validation. Default is `rsmp("cv", folds = 5)`.
-#' * `rr` :: [`ResampleResult`][mlr3::ResampleResult]\cr
-#'   Resample result object, if provided.
-#' * `parameters` :: `character(1)`\cr
-#'   Parameters for beta calibration. Default is `"abm"`.
-#' * `param_vals` :: named `list`\cr
-#'   List of hyperparameter settings, overwriting the default hyperparameter settings.
+#' @field learner [`Learner`][mlr3::Learner]\cr Base learner to be calibrated.
+#' @field method `character(1)`\cr Calibration method used.
+#' @field rsmp [`Resampling`][mlr3::Resampling]\cr Resampling strategy.
+#' @field learners `list`\cr List of learners obtained from resampling.
+#' @field calibrators `list`\cr List of calibrator models.
+#' @field rr [`ResampleResult`][mlr3::ResampleResult]\cr Resample result object.
+#' @field parameters `character(1)`\cr Parameters for beta calibration.
 #'
-#' @section Input and Output Channels:
-#' Input and output channels are inherited from [`PipeOp`][mlr3pipelines::PipeOp].
-#'
-#' * Input during training: [`Task`][mlr3::Task] with the data to calibrate.
-#' * Output during training: `NULL`.
-#' * Input during prediction: [`Task`][mlr3::Task] with new data.
-#' * Output during prediction: [`PredictionClassif`][mlr3::PredictionClassif] with calibrated probabilities.
-#'
-#' @section State:
-#' The `$state` is a named `list` with the elements inherited from [`PipeOp`][mlr3pipelines::PipeOp].
-#'
-#' @section Parameters:
-#' The parameters are inherited from [`PipeOp`][mlr3pipelines::PipeOp], as well as:
-#'
-#' * `learner` :: [`Learner`][mlr3::Learner]\cr
-#'   Base learner to be calibrated.
-#' * `method` :: `character(1)`\cr
-#'   Calibration method to use.
-#' * `rsmp` :: [`Resampling`][mlr3::Resampling]\cr
-#'   Resampling strategy for cross-validation.
-#' * `rr` :: [`ResampleResult`][mlr3::ResampleResult]\cr
-#'   Resample result object, if provided.
-#' * `parameters` :: `character(1)`\cr
-#'   Parameters for beta calibration.
-#' * `param_vals` :: named `list`\cr
-#'   List of hyperparameter settings.
-#'
-#' @section Fields:
-#' * `learner` :: [`Learner`][mlr3::Learner]\cr
-#'   Base learner to be calibrated.
-#' * `method` :: `character(1)`\cr
-#'   Calibration method used.
-#' * `rsmp` :: [`Resampling`][mlr3::Resampling]\cr
-#'   Resampling strategy.
-#' * `learners` :: `list`\cr
-#'   List of learners obtained from resampling.
-#' * `calibrators` :: `list`\cr
-#'   List of calibrator models.
-#' * `rr` :: [`ResampleResult`][mlr3::ResampleResult]\cr
-#'   Resample result object.
-#' * `parameters` :: `character(1)`\cr
-#'   Parameters for beta calibration.
-#'
-#' @section Methods:
-#' Only methods inherited from [`PipeOp`][mlr3pipelines::PipeOp].
-#'
-#' @family PipeOps
-#' @template seealso_pipeops_list
-#' @include PipeOp.R
-#' @export
+#' @field predict_type `character(1)`\cr Returns `"prob"` as prediction type.
 #'
 #' @examples
-#' # Example usage of PipeOpCalibration
-#' # Load a binary classification task
+#' # Example usage
 #' set.seed(1)
 #' data("Sonar", package = "mlbench")
 #' task = as_task_classif(Sonar, target = "Class", positive = "M")
-#' splits = partition(task)
-#' task_train = task$clone()$filter(splits$train)
-#' task_test = task$clone()$filter(splits$test)
-#'
-#' # Initialize the uncalibrated learner
 #' learner_uncal <- lrn("classif.ranger", predict_type = "prob")
-#' # Initialize the calibrated learner
 #' rsmp <- rsmp("cv", folds = 5)
-#' learner_cal <- as_learner(po("calibration_cv", learner = learner_uncal,
-#'                              method = "platt", rsmp = rsmp))
-#' # Set ID's for the learners
+#' learner_cal <- as_learner(po("calibration_cv", learner = learner_uncal, method = "platt", rsmp = rsmp))
 #' learner_uncal$id <- "Uncalibrated Learner"
-#' learner_cal$id <- "Calibrated Learner
-#'
-#' # Train the learners
-#' learner_uncal$train(task_train)
-#' learner_cal$train(task_train)
+#' learner_cal$id <- "Calibrated Learner"
 #'
 #' @export
 
@@ -119,6 +47,14 @@ PipeOpCalibration <- R6::R6Class(
     rr = NULL,
     parameters = NULL,
 
+    #' @description
+    #' Creates a new `PipeOpCalibration` object.
+    #' @param learner Base learner to be calibrated.
+    #' @param method Calibration method to use. One of `"platt"`, `"isotonic"`, or `"beta"`. Default is `"platt"`.
+    #' @param rsmp Resampling strategy for cross-validation. Default is `rsmp("cv", folds = 5)`.
+    #' @param rr Resample result object, if provided.
+    #' @param parameters Parameters for beta calibration. Default is `"abm"`.
+    #' @param param_vals List of hyperparameter settings, overwriting the default hyperparameter settings.
     initialize = function(
     learner = NULL,
     method = "platt",
