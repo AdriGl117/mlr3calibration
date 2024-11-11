@@ -22,4 +22,7 @@ Imports:
     R6 (>= 2.4.1),
     CalibratR,
     gmish,
-    betacal
+    betacal,
+    mlr3pipelines,
+    mlr3verse,
+    stats
