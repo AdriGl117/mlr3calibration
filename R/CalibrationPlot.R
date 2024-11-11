@@ -60,22 +60,22 @@ calibrationplot <- function(learners, task, bins = 10,
   dummy_line <- data.frame(mean_res = c(0, 1), mean_truth = c(0, 1), learner_id = "Perfectly Calibrated")
 
   p <- ggplot2::ggplot() +
-    geom_line(data = dummy_line, aes(x = mean_res, y = mean_truth, color = learner_id), linetype = "dashed", show.legend = TRUE) +
-    theme_minimal() +
-    xlim(0, 1) +
-    ylim(0, 1) +
-    labs(x = "Mean Prediction", y = "Mean Truth", color = "Learner") +
-    scale_color_manual(values = c("Perfectly Calibrated" = "black", setNames(scales::hue_pal()(length(unique(all_data$learner_id))), unique(all_data$learner_id)))) +
-    theme(legend.position = c(0.85, 0.25)) +
-    theme(legend.background = element_rect(color = "black", size = 0.5)) +
-    ggtitle("Reliability Curve") +
-    theme(plot.title = element_text(hjust = 0.5, size = 20))
+    ggplot2::geom_line(data = dummy_line, aes(x = mean_res, y = mean_truth, color = learner_id), linetype = "dashed", show.legend = TRUE) +
+    ggplot2::theme_minimal() +
+    ggplot2::xlim(0, 1) +
+    ggplot2::ylim(0, 1) +
+    ggplot2::labs(x = "Mean Prediction", y = "Mean Truth", color = "Learner") +
+    ggplot2::scale_color_manual(values = c("Perfectly Calibrated" = "black", setNames(scales::hue_pal()(length(unique(all_data$learner_id))), unique(all_data$learner_id)))) +
+    ggplot2::theme(legend.position = c(0.85, 0.25)) +
+    ggplot2::theme(legend.background = element_rect(color = "black", size = 0.5)) +
+    ggplot2::ggtitle("Reliability Curve") +
+    ggplot2::theme(plot.title = element_text(hjust = 0.5, size = 20))
 
   if (smooth) {
-    p <- p + geom_smooth(data = all_data, aes(x = mean_res, y = mean_truth, color = learner_id), method = "loess", se = CI)
+    p <- p + ggplot2::geom_smooth(data = all_data, aes(x = mean_res, y = mean_truth, color = learner_id), method = "loess", se = CI)
   } else {
-    p <- p + geom_point(data = all_data, aes(x = mean_res, y = mean_truth, color = learner_id)) +
-      geom_line(data = all_data, aes(x = mean_res, y = mean_truth, color = learner_id))
+    p <- p + ggplot2::geom_point(data = all_data, aes(x = mean_res, y = mean_truth, color = learner_id)) +
+      ggplot2::geom_line(data = all_data, aes(x = mean_res, y = mean_truth, color = learner_id))
   }
 
   return(p)
