@@ -26,7 +26,7 @@ ece = R6::R6Class("ece",
                     .score = function(prediction, ...) {
                       actual = ifelse(prediction$truth == colnames(prediction$prob)[1], 1, 0)
                       predicted = prediction$prob[, 1]
-                      CalibratR::get_ECE_equal_width(actual = actual, predicted = predicted)
+                      CalibratR::getECE(actual = actual, predicted = predicted)
                     }
                   )
 )

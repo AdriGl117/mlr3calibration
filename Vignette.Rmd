@@ -5,11 +5,6 @@ date: "`r Sys.Date()`"
 output: pdf_document
 ---
 
-```{r setup, include=FALSE} 
-knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
-source("sources.R")
-```
-
 ## Installation
 
 You can install the mlr3calibration package from GitHub with the following code:
@@ -41,7 +36,7 @@ learner_uncal <- lrn("classif.ranger", predict_type = "prob")
 
 # Initialize the calibrated learner
 rsmp <- rsmp("cv", folds = 5)
-learner_cal <- as_learner(po("calibration_cv", learner = learner_uncal,
+learner_cal <- as_learner(po("calibration", learner = learner_uncal,
                              method = "platt", rsmp = rsmp))
 
 # Set ID's for the learners
