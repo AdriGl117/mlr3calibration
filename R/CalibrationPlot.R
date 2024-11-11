@@ -38,8 +38,8 @@
 #' library(ggplot2)
 #' # List the Learners you want to plot
 #' lrns = list(learner_uncal, learner_cal)
-#' # Plot the reliability curve
-#' calibrationplot(lrns, task_test, smooth = TRUE)Calibration in mlr3
+#' # Plot the reliability curves
+#' calibrationplot(lrns, task_test, smooth = TRUE)
 
 calibrationplot <- function(learners, task, bins = 11,
                             smooth = FALSE, CI = FALSE, rug = FALSE) {

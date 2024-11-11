@@ -104,7 +104,7 @@
 #' learner_uncal$train(task_train)
 #' learner_cal$train(task_train)
 
-PipeOpCalibration <- R6Class(
+PipeOpCalibration <- R6::R6Class(
   "PipeOpCalibration",
   inherit = mlr3pipelines::PipeOp,
 
