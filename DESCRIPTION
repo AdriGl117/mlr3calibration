@@ -25,4 +25,6 @@ Imports:
     betacal,
     mlr3pipelines,
     mlr3verse,
-    stats
+    stats,
+    ggplot2,
+    ggpubr
