@@ -19,7 +19,7 @@ Imports:
     methods,
     mlr3misc (>= 0.9.4),
     paradox (>= 1.0.1),
-    R6,
+    R6 (>= 2.4.1),
     CalibratR,
     gmish,
     betacal
