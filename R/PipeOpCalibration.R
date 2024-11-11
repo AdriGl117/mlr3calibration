@@ -281,7 +281,5 @@ PipeOpCalibration <- R6::R6Class(
   )
 )
 
-#' @rdname mlr_pipeops_calibration
-#' @export
 mlr_pipeops$add("calibration", PipeOpCalibration)
 
