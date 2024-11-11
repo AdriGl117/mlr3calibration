@@ -51,7 +51,7 @@ calibrationplot <- function(learners, task, bins = 11,
     data <- data.frame(res, truth, learner_id = learner$id)
     data <- data[order(data$res), ]
     data$bin <- cut(data$res, breaks = seq(0, 1, length.out = bins), include.lowest = TRUE)
-    data <- data %>% group_by(bin) %>% summarise(mean_res = mean(res), mean_truth = mean(truth), learner_id = first(learner_id))
+    data <- data %>% dplyr::group_by(bin) %>% dplyr::summarise(mean_res = mean(res), mean_truth = mean(truth), learner_id = first(learner_id))
     all_data <- rbind(all_data, data)
   }
 
