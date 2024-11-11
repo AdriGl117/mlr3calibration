@@ -19,6 +19,8 @@
 #'
 #' @return A `ggplot` object displaying the calibration plot(s).
 #'
+#' @import checkmate dplyr ggplot2
+#'
 #' @details
 #' For each learner, the function predicts probabilities on the given task.
 #' The predicted probabilities are divided into bins, and within each bin,
@@ -38,7 +40,7 @@
 #' lrns = list(learner_uncal, learner_cal)
 #' # Plot the reliability curves
 #' calibrationplot(lrns, task_test, smooth = TRUE)
-calibrationplot <- function(learners, task, bins = 11,
+calibrationplot <- function(learners, task, bins = 10,
                             smooth = FALSE, CI = FALSE, rug = FALSE) {
 
   all_data <- data.frame()
@@ -50,8 +52,8 @@ calibrationplot <- function(learners, task, bins = 11,
     truth <- ifelse(prediction$truth == positive, 1, 0)
     data <- data.frame(res, truth, learner_id = learner$id)
     data <- data[order(data$res), ]
-    data$bin <- cut(data$res, breaks = seq(0, 1, length.out = bins), include.lowest = TRUE)
-    data <- data %>% dplyr::group_by(bin) %>% dplyr::summarise(mean_res = mean(res), mean_truth = mean(truth), learner_id = first(learner_id))
+    data$bin <- cut(data$res, breaks = seq(0, 1, length.out = bins + 1), include.lowest = TRUE)
+    data <- data %>% group_by(bin) %>% summarise(mean_res = mean(res), mean_truth = mean(truth), learner_id = first(learner_id))
     all_data <- rbind(all_data, data)
   }
 
