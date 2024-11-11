@@ -103,6 +103,8 @@
 #' # Train the learners
 #' learner_uncal$train(task_train)
 #' learner_cal$train(task_train)
+#'
+#' @export
 
 PipeOpCalibration <- R6::R6Class(
   "PipeOpCalibration",
@@ -282,4 +284,3 @@ PipeOpCalibration <- R6::R6Class(
 )
 
 mlr3pipelines::mlr_pipeops$add("calibration", PipeOpCalibration)
-
