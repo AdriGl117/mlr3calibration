@@ -43,6 +43,14 @@
 calibrationplot <- function(learners, task, bins = 10,
                             smooth = FALSE, CI = FALSE, rug = FALSE) {
 
+  if (!requireNamespace("dplyr", quietly = TRUE)) {
+    stop("The 'dplyr' package is required to use this function. Please load the libray and try it again")
+  }
+
+  if (!requireNamespace("ggplot2", quietly = TRUE)) {
+    stop("The 'ggplot2' package is required to use this function.Please load the libray and try it again")
+  }
+
   all_data <- data.frame()
   positive <- task$positive
 

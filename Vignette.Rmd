@@ -36,8 +36,9 @@ learner_uncal <- lrn("classif.ranger", predict_type = "prob")
 
 # Initialize the calibrated learner
 rsmp <- rsmp("cv", folds = 5)
-learner_cal <- as_learner(po("calibration", learner = learner_uncal,
-                             method = "platt", rsmp = rsmp))
+learner_cal <- as_learner(PipeOpCalibration$new(learner = learner_uncal, 
+                                              method = "platt", 
+                                              rsmp = rsmp))
 
 # Set ID's for the learners
 learner_uncal$id <- "Uncalibrated Learner"
@@ -59,15 +60,15 @@ learner_cal$train(task_train)
 preds_uncal <- learner_uncal$predict(task_test)
 preds_cal <- learner_cal$predict(task_test)
 
-# Calculate the ECE
-ece_uncal <-  preds_uncal$score(msr("classif.ece"))
-ece_cal <-  preds_cal$score(msr("classif.ece"))
+# Calculate the Brier Score
+brier_uncal <-  preds_uncal$score(msr("classif.bbrier"))
+brier_cal <-  preds_cal$score(msr("classif.bbrier"))
 
-# Uncalibrated ECE
-ece_uncal
+# Uncalibrated Brier Score
+brier_uncal
 
-# Calibrated ECE
-ece_cal
+# Calibrated Brier Score
+brier_cal
 ```
 
 ## Raliability Curve

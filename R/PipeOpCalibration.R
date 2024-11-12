@@ -24,14 +24,25 @@
 #' @examples
 #' # Example usage
 #' set.seed(1)
+#'
+#' # Load the task
 #' data("Sonar", package = "mlbench")
 #' task = as_task_classif(Sonar, target = "Class", positive = "M")
+#'
+#' # Initialize the base learner
 #' learner_uncal <- lrn("classif.ranger", predict_type = "prob")
+#'
+#' # Initialize the calibrated learner
 #' rsmp <- rsmp("cv", folds = 5)
-#' learner_cal <- as_learner(po("calibration_cv", learner = learner_uncal, method = "platt", rsmp = rsmp))
-#' learner_uncal$id <- "Uncalibrated Learner"
+#' learner_cal <- as_learner(PipeOpCalibration$new(learner = learner_uncal,
+#'                                                 method = "platt",
+#'                                                 rsmp = rsmp))
+#'
+#' # Set ID's for the learners
 #' learner_cal$id <- "Calibrated Learner"
 #'
+#' # Train the calibrated learner
+#' learner_cal$train(task)
 #' @export
 
 PipeOpCalibration <- R6::R6Class(
