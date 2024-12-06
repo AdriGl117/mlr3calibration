@@ -67,7 +67,7 @@ calibrationplot <- function(learners, task, bins = 10,
 
   dummy_line <- data.frame(mean_res = c(0, 1), mean_truth = c(0, 1), learner_id = "Perfectly Calibrated")
 
-  p <- ggplot2::ggplot() +
+  p <- ggplot() +
     geom_line(data = dummy_line, aes(x = mean_res, y = mean_truth, color = learner_id), linetype = "dashed", show.legend = TRUE) +
     theme_minimal() +
     xlim(0, 1) +
