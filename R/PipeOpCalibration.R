@@ -11,6 +11,13 @@
 #' @param parameters `character(1)`\cr Parameters for beta calibration. Default is `"abm"`.
 #' @param param_vals `list`\cr param_vals, copied from base learner
 #'
+#' @field learner [`Learner`][mlr3::Learner]\cr Base learner to be calibrated.
+#' @field method `character(1)`\cr Calibration method used.
+#' @field rsmp [`Resampling`][mlr3::Resampling]\cr Resampling strategy.
+#' @field learners `list`\cr List of learners obtained from resampling.
+#' @field calibrators `list`\cr List of calibrator models.
+#' @field rr [`ResampleResult`][mlr3::ResampleResult]\cr Resample result object.
+#' @field parameters `character(1)`\cr Parameters for beta calibration.
 #' @field predict_type `character(1)`\cr Set predict_type to `"prob"`.
 #'
 #' @references

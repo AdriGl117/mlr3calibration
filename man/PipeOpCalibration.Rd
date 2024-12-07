@@ -37,6 +37,25 @@ Filho TMS, Kull M (2017). betacal: Beta Calibration_. R package version 0.1.0, \
 \section{Super class}{
 \code{\link[mlr3pipelines:PipeOp]{mlr3pipelines::PipeOp}} -> \code{PipeOpCalibration}
 }
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{learner}}{\code{\link[mlr3:Learner]{Learner}}\cr Base learner to be calibrated.}
+
+\item{\code{method}}{\code{character(1)}\cr Calibration method used.}
+
+\item{\code{rsmp}}{\code{\link[mlr3:Resampling]{Resampling}}\cr Resampling strategy.}
+
+\item{\code{learners}}{\code{list}\cr List of learners obtained from resampling.}
+
+\item{\code{calibrators}}{\code{list}\cr List of calibrator models.}
+
+\item{\code{rr}}{\code{\link[mlr3:ResampleResult]{ResampleResult}}\cr Resample result object.}
+
+\item{\code{parameters}}{\code{character(1)}\cr Parameters for beta calibration.}
+}
+\if{html}{\out{</div>}}
+}
 \section{Active bindings}{
 \if{html}{\out{<div class="r6-active-bindings">}}
 \describe{
