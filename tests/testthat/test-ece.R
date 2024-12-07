@@ -1,0 +1,12 @@
+test_that("ece", {
+  data("Sonar", package = "mlbench")
+  task = as_task_classif(Sonar, target = "Class", positive = "M")
+  splits = partition(task)
+  task_train = task$clone()$filter(splits$train)
+  task_test = task$clone()$filter(splits$test)
+  learner <- lrn("classif.rpart", predict_type = "prob")
+  learner$train(task_train)
+  preds = learner$predict(task_test)
+  score_ece = preds$score(ece$new())
+  expect_numeric(score_ece)
+})
