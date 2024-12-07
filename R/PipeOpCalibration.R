@@ -104,7 +104,7 @@ PipeOpCalibration <- R6::R6Class(
       self$parameters = parameters
       self$learners = list()
       self$calibrators = list()
-      super$initialize(id = id,
+      super$initialize(id = self$learner$base_learner()$id,
                        param_set = alist(self$learner$param_set),
                        param_vals = param_vals,
                        input = data.table(name = "input", train = "Task",

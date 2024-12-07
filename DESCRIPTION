@@ -4,7 +4,7 @@ Version: 0.0.0.9000
 Authors@R: 
     person("Adrian", "Glos", , "adrianglos117@googlemail.com", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+Description: This package is a flexible calibration extension for the mlr3 framework in R. It includes the ability to calibrate objects of type learner, so that they can be trained or predicted as usual. It allows to choose between Platt scaling, Beta calibration and isotonic calibration. In addition, a calibrated learner can either be easily integrated into pipelines or entire pipelines can be calibrated. The calibrated learner can also be initialised by a base learner with tune token, allowing parameter tuning for the calibrated learner. This package also provides the ability to plot the reliability curve for one or more trained learners and a task. Furthermore, this extension provides two calibration measures: the expected calibration error and the integrated calibration index. 
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -30,9 +30,13 @@ Imports:
     ggplot2,
     dplyr,
     magrittr,
+    scales,
     mlbench
+VignetteBuilder: knitr
 Suggests: 
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    knitr,
+    rmarkdown
 Remotes:
     gweissman/gmish
 Config/testthat/edition: 3
