@@ -31,7 +31,8 @@ Imports:
     dplyr,
     magrittr,
     scales,
-    mlbench
+    mlbench,
+    remotes
 VignetteBuilder: knitr
 Suggests: 
     testthat (>= 3.0.0),
