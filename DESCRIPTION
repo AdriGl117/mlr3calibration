@@ -26,6 +26,7 @@ Imports:
     mlr3pipelines,
     mlr3verse,
     mlr3learners,
+    xgboost,
     stats,
     ggplot2,
     dplyr
