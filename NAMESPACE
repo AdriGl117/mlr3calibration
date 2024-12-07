@@ -3,3 +3,7 @@
 export(PipeOpCalibration)
 export(calibrationplot)
 export(ece)
+export(ici)
+import(checkmate)
+import(dplyr)
+import(ggplot2)

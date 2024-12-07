@@ -7,7 +7,7 @@
 calibrationplot(
   learners,
   task,
-  bins = 11,
+  bins = 10,
   smooth = FALSE,
   CI = FALSE,
   rug = FALSE
@@ -33,7 +33,7 @@ Whether to include confidence intervals when \code{smooth} is \code{TRUE}. Defau
 Whether to add a rug plot to show individual prediction points. Default is \code{FALSE}.}
 }
 \value{
-A \code{ggplot} object displaying the calibration plot(s).
+A \code{ggplot} object displaying the reliability curves.
 }
 \description{
 Generates calibration plots, also known as reliability curves, for one or more classification learners.
@@ -47,11 +47,35 @@ These values are then plotted to assess calibration.
 }
 \examples{
 # Example usage of calibrationplot
-library(ggplot2)
-# List the learners you want to plot
+set.seed(1)
+data("Sonar", package = "mlbench")
+task = as_task_classif(Sonar, target = "Class", positive = "M")
+splits = partition(task)
+task_train = task$clone()$filter(splits$train)
+task_test = task$clone()$filter(splits$test)
+# Initialize the uncalibrated learner
+learner_uncal <- lrn("classif.xgboost", nrounds = 50, predict_type = "prob")
+
+# Initialize the calibrated learner
+rsmp <- rsmp("cv", folds = 5)
+learner_cal <- as_learner(PipeOpCalibration$new(learner = learner_uncal,
+                                                method = "beta",
+                                                rsmp = rsmp))
+
+# Set ID's for the learners
+learner_uncal$id <- "Uncalibrated Learner"
+learner_cal$id <- "Calibrated Learner"
+
+# Train the learners
+learner_uncal$train(task_train)
+learner_cal$train(task_train)
+
+# List the Learners you want to plot
 lrns = list(learner_uncal, learner_cal)
-# Plot the reliability curves
+
+# Plot the reliability curve
 calibrationplot(lrns, task_test, smooth = TRUE)
+
 }
 \references{
 Niculescu-Mizil, A., & Caruana, R. (2005). Predicting good probabilities with supervised learning. In Proceedings of the 22nd international conference on Machine learning (pp. 625-632).
