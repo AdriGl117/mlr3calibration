@@ -1,7 +1,7 @@
 #' @title Calibration Pipeline Operator
 #'
 #' @description
-#' Pipeline operator for calibrating classification models using different calibration methods.
+#' Pipeline operator for calibrating classification learner using different calibration methods.
 #' Supports Platt scaling, isotonic regression, and beta calibration.
 #'
 #' @param learner [`Learner`][mlr3::Learner]\cr Base learner to be calibrated. predict_type has to be `"prob"`.
