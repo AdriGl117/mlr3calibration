@@ -25,9 +25,10 @@ Imports:
     betacal,
     mlr3pipelines,
     mlr3verse,
+    mlr3learners,
+    mlr3extralearners,
     stats,
     ggplot2,
-    ggpubr,
     dplyr
 Suggests: 
     testthat (>= 3.0.0)
