@@ -34,4 +34,5 @@ Suggests:
     testthat (>= 3.0.0)
 Remotes:
     gweissman/gmish
+    mlr-org/mlr3extralearners
 Config/testthat/edition: 3
