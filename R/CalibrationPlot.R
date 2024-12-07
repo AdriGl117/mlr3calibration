@@ -19,7 +19,12 @@
 #'
 #' @return A `ggplot` object displaying the reliability curves.
 #'
-#' @import checkmate dplyr ggplot2
+#' @importFrom dplyr group_by summarise first
+#' @importFrom ggplot2 ggplot aes geom_line geom_smooth geom_point labs
+#' @importFrom ggplot2 scale_color_manual theme_minimal theme element_rect
+#' @importFrom stats setNames
+#' @importFrom magrittr %>%
+#' @importFrom utils globalVariables
 #'
 #' @details
 #' For each learner, the function predicts probabilities on the given task.
@@ -65,18 +70,10 @@
 #'
 #' @export
 
+utils::globalVariables(c("bin", "mean_res", "mean_truth", "learner_id"))
+
 calibrationplot <- function(learners, task, bins = 10,
                             smooth = FALSE, CI = FALSE, rug = FALSE) {
-
-  if (!require("dplyr")) {
-    stop("The 'dplyr' package is required to use this function. Please install
-         the libray and try it again")
-  }
-
-  if (!require("ggplot2")) {
-    stop("The 'ggplot2' package is required to use this function. Please install
-         the libray and try it again")
-  }
 
   all_data <- data.frame()
   positive <- task$positive
@@ -105,8 +102,8 @@ calibrationplot <- function(learners, task, bins = 10,
     ylim(0, 1) +
     labs(x = "Mean Prediction", y = "Mean Truth", color = "Learner") +
     scale_color_manual(values = c("Perfectly Calibrated" = "black",
-      setNames(scales::hue_pal()(length(unique(all_data$learner_id))),
-               unique(all_data$learner_id)))) +
+      stats::setNames(scales::hue_pal()(length(unique(all_data$learner_id))),
+        unique(all_data$learner_id)))) +
     theme(legend.position = c(0.85, 0.25)) +
     theme(legend.background = element_rect(color = "black", size = 0.5)) +
     ggtitle("Reliability Curve") +

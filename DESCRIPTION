@@ -28,7 +28,9 @@ Imports:
     xgboost,
     stats,
     ggplot2,
-    dplyr
+    dplyr,
+    magrittr,
+    mlbench
 Suggests: 
     testthat (>= 3.0.0)
 Remotes:
