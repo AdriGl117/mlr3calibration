@@ -4,9 +4,9 @@
 \alias{ici}
 \title{Integrated Calibration Index}
 \description{
-Calculates the Expected Calibration Error (ECE) for classification tasks.
-ECE measures the difference between predicted probabilities and actual outcomes,
-providing an assessment of how well the predicted probabilities are calibrated.
+Calculates the Integrated Calibration Index (ICI) for binary classification tasks.
+The ICI is a weighted average of the absolute differences between the
+calibration curve and the diagonal perfectly calibrated line.
 }
 \examples{
 # Example usage

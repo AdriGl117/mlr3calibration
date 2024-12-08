@@ -1,5 +1,7 @@
 #' @title Calibration Plot Function
 #'
+#' @name calibrationplot
+#'
 #' @description
 #' Generates calibration plots, also known as reliability curves, for one or more classification learners.
 #' This function evaluates how well the predicted probabilities from the learners are calibrated with the true outcomes.

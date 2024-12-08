@@ -4,7 +4,7 @@
 \alias{PipeOpCalibration}
 \title{Calibration Pipeline Operator}
 \description{
-Pipeline operator for calibrating classification models using different calibration methods.
+Pipeline operator for calibrating classification learner using different calibration methods.
 Supports Platt scaling, isotonic regression, and beta calibration.
 }
 \examples{

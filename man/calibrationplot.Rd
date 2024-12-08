@@ -3,16 +3,6 @@
 \name{calibrationplot}
 \alias{calibrationplot}
 \title{Calibration Plot Function}
-\usage{
-calibrationplot(
-  learners,
-  task,
-  bins = 10,
-  smooth = FALSE,
-  CI = FALSE,
-  rug = FALSE
-)
-}
 \arguments{
 \item{learners}{\code{list} of \code{\link[mlr3:Learner]{Learner}}\cr
 List of trained learners to be evaluated.}
