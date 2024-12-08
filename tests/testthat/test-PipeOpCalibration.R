@@ -10,11 +10,11 @@ test_that("platt", {
   learner_cal <- as_learner(PipeOpCalibration$new(learner = learner,
                             method = "platt"))
   learner_cal$train(task_train)
-  expect_numeric(learner_cal$state$train_time)
+  checkmate::expect_numeric(learner_cal$state$train_time)
 
   # Predict
   preds = learner_cal$predict(task_test)
-  expect_numeric(mean(preds$prob[,1]))
+  checkmate::expect_numeric(mean(preds$prob[,1]))
 })
 
 test_that("beta", {
@@ -30,11 +30,11 @@ test_that("beta", {
                                                   method = "beta",
                                                   parameters = "ab"))
   learner_cal$train(task_train)
-  expect_numeric(learner_cal$state$train_time)
+  checkmate::expect_numeric(learner_cal$state$train_time)
 
   # Predict
   preds = learner_cal$predict(task_test)
-  expect_numeric(mean(preds$prob[,1]))
+  checkmate::expect_numeric(mean(preds$prob[,1]))
 })
 
 test_that("isotonic", {
@@ -49,16 +49,16 @@ test_that("isotonic", {
   learner_cal <- as_learner(PipeOpCalibration$new(learner = learner,
                                                   method = "isotonic"))
   learner_cal$train(task_train)
-  expect_numeric(learner_cal$state$train_time)
+  checkmate::expect_numeric(learner_cal$state$train_time)
 
   # Predict
   preds = learner_cal$predict(task_test)
-  expect_numeric(mean(preds$prob[,1]))
+  checkmate::expect_numeric(mean(preds$prob[,1]))
 })
 
 test_that("predict_type", {
   data("Sonar", package = "mlbench")
   task = as_task_classif(Sonar, target = "Class", positive = "M")
   learner <- lrn("classif.rpart", predict_type = "response")
-  expect_error(as_learner(PipeOpCalibration$new(learner = learner)))
+  checkmate::expect_error(as_learner(PipeOpCalibration$new(learner = learner)))
 })

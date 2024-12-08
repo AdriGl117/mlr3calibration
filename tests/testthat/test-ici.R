@@ -8,5 +8,5 @@ test_that("ici", {
   learner$train(task_train)
   preds = learner$predict(task_test)
   score_ici = preds$score(ici$new())
-  expect_numeric(score_ici)
+  checkmate::expect_numeric(score_ici)
 })
