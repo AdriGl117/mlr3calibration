@@ -85,6 +85,7 @@ To visualize how well the model is calibrated, this package provides a calibrati
 lrns = list(learner_uncal, learner_cal)
 
 # Plot the reliability curve
+library(ggplot2)
 calibrationplot(lrns, task_test, smooth = TRUE)
 ```
 
