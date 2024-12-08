@@ -60,5 +60,5 @@ test_that("predict_type", {
   data("Sonar", package = "mlbench")
   task = as_task_classif(Sonar, target = "Class", positive = "M")
   learner <- lrn("classif.rpart", predict_type = "response")
-  testthat::::expect_error(as_learner(PipeOpCalibration$new(learner = learner)))
+  testthat::expect_error(as_learner(PipeOpCalibration$new(learner = learner)))
 })
