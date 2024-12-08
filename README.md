@@ -21,8 +21,7 @@ code:
 
 ```
 remotes::install_github("AdriGl117/mlr3calibration")
-library(mlr3calibration)
-library(mlr3verse)
+
 ```
 
 ## Calibration
@@ -32,6 +31,8 @@ To use the mlr3calibration package, we first need a binary classification task
 ```
 # Load a binary classification task
 set.seed(1)
+library(mlr3calibration)
+library(mlr3verse)
 data("Sonar", package = "mlbench")
 task = as_task_classif(Sonar, target = "Class", positive = "M")
 splits = partition(task)
