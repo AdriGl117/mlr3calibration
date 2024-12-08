@@ -1,9 +1,9 @@
 #' @title Integrated Calibration Index
 #'
 #' @description
-#' Calculates the Expected Calibration Error (ECE) for classification tasks.
-#' ECE measures the difference between predicted probabilities and actual outcomes,
-#' providing an assessment of how well the predicted probabilities are calibrated.
+#' Calculates the Integrated Calibration Index (ICI) for binary classification tasks.
+#' The ICI is a weighted average of the absolute differences between the
+#' calibration curve and the diagonal perfectly calibrated line.
 #'
 #' @references
 #' Weissman G (2024). _gmish: Miscellaneous Functions for Predictive Modeling_. R package version 0.1.0, commit b1ef2afef76ec2f232f5ad1d3697f31b39377204, <https://github.com/gweissman/gmish>
