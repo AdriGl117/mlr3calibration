@@ -24,6 +24,7 @@
 #' @importFrom dplyr group_by summarise first
 #' @importFrom ggplot2 ggplot aes geom_line geom_smooth geom_point labs
 #' @importFrom ggplot2 scale_color_manual theme_minimal theme element_rect
+#' @importFrom ggplot2 xlim ylim
 #' @importFrom stats setNames
 #' @importFrom magrittr %>%
 #' @importFrom utils globalVariables
