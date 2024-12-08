@@ -110,7 +110,7 @@ calibrationplot <- function(learners, task, bins = 10,
     theme(legend.position = c(0.85, 0.25)) +
     theme(legend.background = element_rect(color = "black", size = 0.5)) +
     ggplot2::ggtitle("Reliability Curve") +
-    theme(plot.title = element_text(hjust = 0.5, size = 20))
+    theme(plot.title = ggplot2::element_text(hjust = 0.5, size = 20))
 
   if (smooth) {
     p <- p + geom_smooth(data = all_data, aes(x = mean_res,
